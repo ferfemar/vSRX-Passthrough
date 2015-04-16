@@ -8,7 +8,7 @@ require "vagrant-host-shell"
 require "vagrant-junos"
 
 Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
-  config.vm.define "ndo-client", primary: true do |ndo|
+  config.vm.define "client", primary: true do |ndo|
     ndo.vm.box = "juniper/netdevops-ubuntu1404-headless"
     ndo.vm.hostname = "Client"
     ndo.vm.network "private_network",
@@ -18,6 +18,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
     ndo.ssh.password = "vagrant"
 
     ndo.vm.provider "virtualbox" do |v|
+        v.customize ["modifyvm", :id, "--memory", "1024"]
     end
 
     ndo.vm.provision "shell" do |s|
@@ -26,7 +27,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
     end
   end
 
-  config.vm.define "ndo-server", primary: true do |ndo|
+  config.vm.define "server", primary: true do |ndo|
     ndo.vm.box = "juniper/netdevops-ubuntu1404-headless"
     ndo.vm.hostname = "Server"
     ndo.vm.network "private_network",
@@ -36,13 +37,14 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
     ndo.ssh.password = "vagrant"
 
     ndo.vm.provider "virtualbox" do |v|
+        v.customize ["modifyvm", :id, "--memory", "1024"]
     end
 
     ndo.vm.provision "shell" do |s|
       # this script provisions the ndo box for you
       s.path = "scripts/ndo-setup-server.sh"
     end
-  end 
+  end
 
   config.vm.define "srx" do |srx|
     srx.vm.box = "juniper/ffp-12.1X47-D20.7"
