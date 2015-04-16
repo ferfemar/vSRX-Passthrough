@@ -17,8 +17,14 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
     ndo.vm.synced_folder "", "/vagrant"
     ndo.ssh.password = "vagrant"
 
+    #Virtualbox configuration
     ndo.vm.provider "virtualbox" do |v|
         v.customize ["modifyvm", :id, "--memory", "1024"]
+    end
+
+    #VMware configuration
+    ndo.vm.provider "vmware_fusion" do |v|
+      v.vmx["memsize"] = "1024"
     end
 
     ndo.vm.provision "shell" do |s|
@@ -36,8 +42,14 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
     ndo.vm.synced_folder "", "/vagrant"
     ndo.ssh.password = "vagrant"
 
+    #Virtualbox Configuration
     ndo.vm.provider "virtualbox" do |v|
         v.customize ["modifyvm", :id, "--memory", "1024"]
+    end
+
+    #VMware configuration
+    ndo.vm.provider "vmware_fusion" do |v|
+      v.vmx["memsize"] = "1024"
     end
 
     ndo.vm.provision "shell" do |s|
@@ -67,7 +79,14 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
       v.check_guest_additions = false
     end
 
+    #VMware configuration
+    srx.vm.provider "vmware_fusion" do |v|
+      v.vmx["memsize"] = "3072"
+    end
+
+    #
     srx.vm.provision "file", source: "scripts/srx-setup.sh", destination: "/tmp/srx-setup.sh"
+    srx.vm.provision "file", source: "vSRX-configs/nopolicy.cfg", destination: "/cf/root/nopolicy.cfg"
     srx.vm.provision :host_shell do |host_shell|
       # provides the inital configuration
       host_shell.inline = 'vagrant ssh srx -c "/usr/sbin/cli -f /tmp/srx-setup.sh"'
