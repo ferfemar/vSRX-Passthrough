@@ -46,7 +46,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
 
   config.vm.define "srx" do |srx|
     srx.vm.box = "juniper/ffp-12.1X47-D20.7"
-    srx.vm.hostname = "NetDevOps-SRX01"
+    srx.vm.hostname = "vSRX"
     srx.vm.network "private_network",
                    ip: "172.16.0.1",
                    nic_type: 'virtio',
