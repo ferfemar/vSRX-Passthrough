@@ -25,6 +25,11 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
     #VMware configuration
     ndo.vm.provider "vmware_fusion" do |v|
       v.vmx["memsize"] = "1024"
+      v.vmx["vhv.enable"] = "TRUE"
+      v.vmx["ethernet1.generatedAddress"] = nil
+      v.vmx["ethernet1.connectionType"] = "custom"
+      v.vmx["ethernet1.present"] = "TRUE"
+      v.vmx["ethernet1.vnet"] = "vmnet0"
     end
 
     ndo.vm.provision "shell" do |s|
@@ -50,6 +55,10 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
     #VMware configuration
     ndo.vm.provider "vmware_fusion" do |v|
       v.vmx["memsize"] = "1024"
+      v.vmx["ethernet1.generatedAddress"] = nil
+      v.vmx["ethernet1.connectionType"] = "custom"
+      v.vmx["ethernet1.present"] = "TRUE"
+      v.vmx["ethernet1.vnet"] = "vmnet1"
     end
 
     ndo.vm.provision "shell" do |s|
@@ -82,14 +91,22 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
     #VMware configuration
     srx.vm.provider "vmware_fusion" do |v|
       v.vmx["memsize"] = "3072"
+      v.vmx["ethernet1.generatedAddress"] = nil
+      v.vmx["ethernet1.connectionType"] = "custom"
+      v.vmx["ethernet1.present"] = "TRUE"
+      v.vmx["ethernet1.vnet"] = "vmnet0"
+      v.vmx["ethernet2.generatedAddress"] = nil
+      v.vmx["ethernet2.connectionType"] = "custom"
+      v.vmx["ethernet2.present"] = "TRUE"
+      v.vmx["ethernet2.vnet"] = "vmnet1"
     end
 
     #
-    srx.vm.provision "file", source: "scripts/srx-setup.sh", destination: "/tmp/srx-setup.sh"
+    srx.vm.provision "file", source: "vSRX-configs/inital.cfg", destination: "/cf/root/inital.cfg"
     srx.vm.provision "file", source: "vSRX-configs/nopolicy.cfg", destination: "/cf/root/nopolicy.cfg"
     srx.vm.provision :host_shell do |host_shell|
       # provides the inital configuration
-      host_shell.inline = 'vagrant ssh srx -c "/usr/sbin/cli -f /tmp/srx-setup.sh"'
+      host_shell.inline = 'vagrant ssh srx -c "/usr/sbin/cli -f /cf/root/inital.cfg'
     end
   end
 end
