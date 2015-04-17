@@ -29,3 +29,7 @@ The topology consists of three VMs: Client, Server, and vSRX. The vSRX is set in
 ### Vagrant Note
 
 Do to the inner workings of Vagrant each host has a virtual NIC connected back to the host running the virtual machines. This allows Vagrant to provision and control each VM over the SSH protocol. These interfaces are depicted on the topology above.
+
+**VM Access Information**
+
+-	[VM Host Passwords](https://github.com/JNPRAutomate/vSRX-Passthrough/blob/master/docs/vmpasswords.md)
