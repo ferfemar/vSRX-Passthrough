@@ -21,7 +21,7 @@ The topology consists of three VMs: Client, Server, and vSRX. The vSRX is set in
                     | ge+0/0/1.0                          
           +---------+----------+                          
  <--------+                    |                          
-ge+0/0/0.0|  vSRX              |                         
+ge-0/0/0.0|  vSRX              |                         
    To host|                    | 
           +---------+----------+                         
                     | ge+0/0/2.0                          
