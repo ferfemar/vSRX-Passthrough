@@ -14,7 +14,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
     ndo.vm.network "private_network",
                    ip: "172.16.0.10",
                    virtualbox__intnet: "NetDevOps-Client"
-    ndo.vm.synced_folder "", "/vagrant"
+    ndo.vm.synced_folder "", "/vagrant", disabled: true
     ndo.ssh.password = "vagrant"
 
     #Virtualbox configuration
@@ -44,7 +44,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
     ndo.vm.network "private_network",
                    ip: "192.168.0.10",
                    virtualbox__intnet: "NetDevOps-Server"
-    ndo.vm.synced_folder "", "/vagrant"
+    ndo.vm.synced_folder "", "/vagrant", disabled: true
     ndo.ssh.password = "vagrant"
 
     #Virtualbox Configuration
