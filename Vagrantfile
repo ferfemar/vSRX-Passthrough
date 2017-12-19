@@ -9,7 +9,7 @@ require "vagrant-junos"
 
 Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   config.vm.define "client", primary: true do |ndo|
-    ndo.vm.box = "juniper/netdevops-ubuntu1404-headless"
+    ndo.vm.box = "jesperwermuth/Ubuntu-14-04-Headless"
     ndo.vm.hostname = "Client"
     ndo.vm.network "private_network",
                    ip: "172.16.0.10",
@@ -39,7 +39,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   end
 
   config.vm.define "server", primary: true do |ndo|
-    ndo.vm.box = "juniper/netdevops-ubuntu1404-headless"
+    ndo.vm.box = "jesperwermuth/Ubuntu-14-04-Headless"
     ndo.vm.hostname = "Server"
     ndo.vm.network "private_network",
                    ip: "192.168.0.10",
@@ -68,7 +68,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   end
 
   config.vm.define "srx" do |srx|
-    srx.vm.box = "juniper/ffp-12.1X47-D20.7"
+    srx.vm.box = "juniper/ffp-12.1X47-D15.4"
     srx.vm.hostname = "vSRX"
     srx.vm.network "private_network",
                    ip: "172.16.0.1",
